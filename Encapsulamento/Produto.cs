@@ -12,6 +12,44 @@ namespace Encapsulamento
         private double _preco; //deixar privado protege o atributo, nao permitindo manipulação pelo usuario
         private int _quantidade;
 
+        //propriedades em C# (manipula atributos) -> ao invez de criar um metodo pra get e um pra set, usa propriedade e descreve dentro o que cada um faz
+        public string Nome
+        {
+            get {
+                return _nome;
+            }
+            set {
+                if (string.IsNullOrWhiteSpace(value) || value.Length < 3) //utiliza value no local do nome da variavel que seria declarada no metodo, pq no metodo, vc coloca a variavel como argumento, e na propriedade, isso nao eh possivel
+                {
+                    Console.WriteLine("Nome nulo ou com menos de 3 caracteres.");
+                    return;
+                }
+                _nome = value;
+            }
+        }
+
+        public double Preco
+        {
+            get
+            {
+                return _preco;
+            }
+            set
+            {
+                if (value < 0)
+                {
+                    Console.WriteLine("PReco não pode ser negativo.");
+                    return;
+                }
+                _preco = value;
+            }
+        }
+
+        //propriedade autoimplementada
+        public int Quantidade { get; set; }   //nao faz nada alem de get e set, sem condições, sem alterar os valores do Atributo (private set -> nao faz alterações do conteudo).
+        
+
+
         public Produto (string nome, double preco)
         {
             _nome = nome;
@@ -23,52 +61,6 @@ namespace Encapsulamento
             _quantidade = quantidade;
         }
 
-        public string GetNome() //pega o nome, retorna uma string (string)
-        {
-            return _nome;
-        }
-
-        public void SetNome(string nome) //define novo valor, nao retornando nada ao usuário (void)
-        {
-            if(string.IsNullOrWhiteSpace(nome) || nome.Length < 3)
-            {
-                Console.WriteLine("Nome nulo ou com menos de 3 caracteres.");
-                return;
-            }
-
-            _nome = nome;
-        }
-
-        public double GetPreco()
-        {
-            return _preco;
-        }
-
-        public void SetPreco(double preco)
-        {
-            if (preco < 0)
-            {
-                Console.WriteLine("Preco nao pode ser negativo");
-                return;
-            }
-
-            _preco = preco;
-        }
-
-        public int GetQuantidade ()
-        {
-            return _quantidade;
-        }
-
-        public void SetQuantidade(int quantidade)
-        {
-            if (quantidade < 0)
-            {
-                Console.WriteLine("Quantidade nao pode ser negatica.");
-                return;
-            }
-
-            _quantidade = quantidade;
-        }
+              
     }
 }
